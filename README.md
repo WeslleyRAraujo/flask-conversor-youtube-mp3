@@ -3,7 +3,7 @@ Projeto utilizando a lib Flask para gerar um site de conversão de videos do You
 https://flask.palletsprojects.com/en/2.1.x/
 <br>
 ### Requisitos:
-Pacotes: python > 3.1, pip
+Pacotes: python > 3.1
 
 ### Como iniciar o projeto?
 ```console
