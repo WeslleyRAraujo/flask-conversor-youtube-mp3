@@ -9,9 +9,8 @@ Pacotes: python > 3.1
 ```console
 git clone https://github.com/WeslleyRAraujo/flask-conversor-youtube-mp3.git
 cd flask-conversor-youtube-mp3
-python3 -m venv venv
-. venv/bin/activate
-pip install -r requirements.txt
-export FLASK_APP=main
-flask run
+sudo chmod +x ./scripts/setup.sh  
+sudo chmod +x ./scripts/start.sh  
+./scripts/setup.sh
+./scripts/start.sh  
 ```
