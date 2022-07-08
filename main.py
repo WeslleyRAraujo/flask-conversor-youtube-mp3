@@ -73,11 +73,12 @@ def convert_mp3(video_link):
 
         options={
             'format':'bestaudio/best',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
+            # remove FFmpeg post processor for a while
+            #'postprocessors': [{
+            #    'key': 'FFmpegExtractAudio',
+            #    'preferredcodec': 'mp3',
+            #    'preferredquality': '192',
+            #}],
             'outtmpl':'download/' + filename,
             'quiet': False
         }
