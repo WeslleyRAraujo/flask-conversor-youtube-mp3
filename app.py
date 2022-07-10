@@ -1,4 +1,3 @@
-from fileinput import filename
 from flask import Flask, request, render_template, jsonify, send_file, redirect
 import youtube_dl
 import os
