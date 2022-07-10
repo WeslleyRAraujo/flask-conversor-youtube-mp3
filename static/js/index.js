@@ -17,16 +17,19 @@ function convert() {
             if(result.erro != null) {
                 let toastElement = document.getElementById('toast-error')
                 let toast = bootstrap.Toast.getOrCreateInstance(toastElement)
+                document.getElementById("error-message").innerHTML = "Houve um erro ao processar sua solicitação, verifique se o link digitado é valido."
                 toast.show()
                 setDefault()
                 return false
             }
-            button_convert.innerHTML = 'Clique aqui para baixar seu arquivo'
-            button_convert.classList.remove('btn-primary')
-            button_convert.classList.add('btn-success')
-            button_convert.setAttribute('href', result.link)
-            button_convert.setAttribute('onclick', 'setDefault()')
-            return true
+            checkDownloadIsDone(result.filename)
+        }).catch(() => {
+            let toastElement = document.getElementById('toast-error')
+            let toast = bootstrap.Toast.getOrCreateInstance(toastElement)
+            document.getElementById("error-message").innerHTML = "Desculpe, o tempo de resposta do servidor excedeu o esperado."
+            toast.show()
+            setDefault()
+            return false
         })
 
     button_convert.disabled = true
@@ -46,4 +49,24 @@ function setDefault() {
         button_convert.setAttribute('onclick', 'convert()')
         document.getElementById("link").value = ''
     }, 1000)
+}
+
+function checkDownloadIsDone(file) {
+    let check = setInterval(() => {
+        fetch(`/done?filename=${file}`, {
+            method: 'GET',
+            headers: {"Content-type": "application/json"}
+        }).then(response => response.json())
+        .then((result) => {
+            if(result.link != false) {
+                let button_convert = document.getElementById("btn-convert")
+                button_convert.innerHTML = 'Clique aqui para baixar seu arquivo'
+                button_convert.classList.remove('btn-primary')
+                button_convert.classList.add('btn-success')
+                button_convert.setAttribute('href', result.link)
+                button_convert.setAttribute('onclick', 'setDefault()')
+                clearInterval(check)
+            }
+        })
+    }, 2000);
 }
